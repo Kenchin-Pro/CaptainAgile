@@ -3,6 +3,7 @@ package fr.esiee.application;
 import org.apache.logging.log4j.core.config.Configurator;
 
 import fr.esiee.application.gui.ParkingGUI;
+import fr.esiee.application.service.ServiceGson;
 import fr.esiee.application.service.ServiceLogger;
 
 public class Main {
@@ -17,8 +18,11 @@ public class Main {
         ServiceLogger.info("");
         ServiceLogger.info("");
 		ServiceLogger.info("Lancement de l'application...");
+	
+		ServiceGson.load() ;
 		
-		new ManagerParking() ;
+		//new ManagerParking().loadDefault();
+		
 		new ParkingGUI() ;
 		
 		

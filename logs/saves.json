@@ -1,0 +1,235 @@
+{
+  "Parking 4": {
+    "name": "Parking 4",
+    "nb_places_deux_roues": 10,
+    "nb_places_quatre_roues": 2,
+    "list_2_roues": [
+      {
+        "id": 0,
+        "type": "DEUX_ROUES",
+        "vehicule": null
+      },
+      {
+        "id": 1,
+        "type": "DEUX_ROUES",
+        "vehicule": null
+      },
+      {
+        "id": 2,
+        "type": "DEUX_ROUES",
+        "vehicule": null
+      },
+      {
+        "id": 3,
+        "type": "DEUX_ROUES",
+        "vehicule": null
+      },
+      {
+        "id": 4,
+        "type": "DEUX_ROUES",
+        "vehicule": null
+      },
+      {
+        "id": 5,
+        "type": "DEUX_ROUES",
+        "vehicule": null
+      },
+      {
+        "id": 6,
+        "type": "DEUX_ROUES",
+        "vehicule": null
+      },
+      {
+        "id": 7,
+        "type": "DEUX_ROUES",
+        "vehicule": null
+      },
+      {
+        "id": 8,
+        "type": "DEUX_ROUES",
+        "vehicule": null
+      },
+      {
+        "id": 9,
+        "type": "DEUX_ROUES",
+        "vehicule": null
+      }
+    ],
+    "list_4_roues": [
+      {
+        "id": 10,
+        "type": "QUATRE_ROUES",
+        "vehicule": {
+          "ID": "dazd",
+          "type": "CAMIONNETTE"
+        }
+      },
+      {
+        "id": 11,
+        "type": "QUATRE_ROUES",
+        "vehicule": null
+      }
+    ]
+  },
+  "Parking 1": {
+    "name": "Parking 1",
+    "nb_places_deux_roues": 1,
+    "nb_places_quatre_roues": 5,
+    "list_2_roues": [
+      {
+        "id": 0,
+        "type": "DEUX_ROUES",
+        "vehicule": {
+          "ID": "a",
+          "type": "SCOOTER"
+        }
+      }
+    ],
+    "list_4_roues": [
+      {
+        "id": 1,
+        "type": "QUATRE_ROUES",
+        "vehicule": null
+      },
+      {
+        "id": 2,
+        "type": "QUATRE_ROUES",
+        "vehicule": null
+      },
+      {
+        "id": 3,
+        "type": "QUATRE_ROUES",
+        "vehicule": null
+      },
+      {
+        "id": 4,
+        "type": "QUATRE_ROUES",
+        "vehicule": null
+      },
+      {
+        "id": 5,
+        "type": "QUATRE_ROUES",
+        "vehicule": null
+      }
+    ]
+  },
+  "Parking 2": {
+    "name": "Parking 2",
+    "nb_places_deux_roues": 4,
+    "nb_places_quatre_roues": 10,
+    "list_2_roues": [
+      {
+        "id": 0,
+        "type": "DEUX_ROUES",
+        "vehicule": null
+      },
+      {
+        "id": 1,
+        "type": "DEUX_ROUES",
+        "vehicule": null
+      },
+      {
+        "id": 2,
+        "type": "DEUX_ROUES",
+        "vehicule": null
+      },
+      {
+        "id": 3,
+        "type": "DEUX_ROUES",
+        "vehicule": null
+      }
+    ],
+    "list_4_roues": [
+      {
+        "id": 4,
+        "type": "QUATRE_ROUES",
+        "vehicule": null
+      },
+      {
+        "id": 5,
+        "type": "QUATRE_ROUES",
+        "vehicule": null
+      },
+      {
+        "id": 6,
+        "type": "QUATRE_ROUES",
+        "vehicule": null
+      },
+      {
+        "id": 7,
+        "type": "QUATRE_ROUES",
+        "vehicule": null
+      },
+      {
+        "id": 8,
+        "type": "QUATRE_ROUES",
+        "vehicule": null
+      },
+      {
+        "id": 9,
+        "type": "QUATRE_ROUES",
+        "vehicule": null
+      },
+      {
+        "id": 10,
+        "type": "QUATRE_ROUES",
+        "vehicule": null
+      },
+      {
+        "id": 11,
+        "type": "QUATRE_ROUES",
+        "vehicule": null
+      },
+      {
+        "id": 12,
+        "type": "QUATRE_ROUES",
+        "vehicule": null
+      },
+      {
+        "id": 13,
+        "type": "QUATRE_ROUES",
+        "vehicule": {
+          "ID": "dazd",
+          "type": "CAMIONNETTE"
+        }
+      }
+    ]
+  },
+  "Parking 3": {
+    "name": "Parking 3",
+    "nb_places_deux_roues": 0,
+    "nb_places_quatre_roues": 4,
+    "list_2_roues": [],
+    "list_4_roues": [
+      {
+        "id": 0,
+        "type": "QUATRE_ROUES",
+        "vehicule": null
+      },
+      {
+        "id": 1,
+        "type": "QUATRE_ROUES",
+        "vehicule": {
+          "ID": "aaa",
+          "type": "VOITURE"
+        }
+      },
+      {
+        "id": 2,
+        "type": "QUATRE_ROUES",
+        "vehicule": {
+          "ID": "aaa",
+          "type": "VOITURE"
+        }
+      },
+      {
+        "id": 3,
+        "type": "QUATRE_ROUES",
+        "vehicule": {
+          "ID": "aaa",
+          "type": "VOITURE"
+        }
+      }
+    ]
+  }
+}

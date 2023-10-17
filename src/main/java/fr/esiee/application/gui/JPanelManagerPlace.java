@@ -14,6 +14,7 @@ import fr.esiee.application.parking.exceptions.ExceptionPlaceIsAlreadyFree;
 import fr.esiee.application.parking.exceptions.ExceptionPlaceIsOccuped;
 import fr.esiee.application.parking.exceptions.ExceptionPlaceNotFound;
 import fr.esiee.application.parking.exceptions.ExceptionUnsuitablePlaceForThisVehicule;
+import fr.esiee.application.service.ServiceGson;
 import fr.esiee.application.service.ServiceParkingManager;
 import fr.esiee.application.vehicule.Vehicule;
 import fr.esiee.application.vehicule.exceptions.ExceptionRegistrationNotAccepted;
@@ -69,6 +70,7 @@ public class JPanelManagerPlace extends JPanel {
                     TypeVehicule type = TypeVehicule.valueOf(selectedType);
                     Vehicule v = new Vehicule(type, plaque) ;                    
                     ServiceParkingManager.vehiculeTakePlace(v, parking, placeNumber) ;
+                    ServiceGson.save();
                     
                 } catch(NumberFormatException exc) {
                 	parkingPanel.setErrorMessage("Vous devez entrer l'identifiant de la place (uniquement le nombre).") ;
@@ -98,6 +100,7 @@ public class JPanelManagerPlace extends JPanel {
                 try {
                 	int placeNumber = Integer.parseInt(placeNumberField.getText());
                 	ServiceParkingManager.vehiculeFreeUpPlace(parking, placeNumber) ;
+                	ServiceGson.save();
                 	
                 } catch(NumberFormatException exc) {
                 	parkingPanel.setErrorMessage("Vous devez entrer l'identifiant de la place (uniquement le nombre).") ;

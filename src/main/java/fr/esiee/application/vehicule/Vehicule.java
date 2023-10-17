@@ -9,9 +9,12 @@ public class Vehicule {
 	@Getter private final TypeVehicule typeVehicule ;
 	@Getter private final String ID ;
 	
-	public Vehicule(TypeVehicule type, String ID) throws ExceptionRegistrationNotAccepted {
+	public Vehicule(TypeVehicule type, String ID) throws NullPointerException, ExceptionRegistrationNotAccepted {
 		this.typeVehicule = type ; 
 		this.ID = ID ;
+		
+		if(ID == null)
+			throw new NullPointerException() ;
 		
 		if(ID.equalsIgnoreCase(""))
 			throw new ExceptionRegistrationNotAccepted() ;
