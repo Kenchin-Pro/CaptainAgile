@@ -27,4 +27,8 @@ public interface ServiceLogger {
 		ServiceLogger.info(park.getName()+" : "+"Véhicule "+v.getID()+" ("+v.getTypeVehicule().getLetter()+") free up place #"+place.getIdPlace());
 	}
 	
+	public static void logVehiculeNotInTheRules(Place place) {
+		ServiceLogger.info("[!] Véhicule "+place.getVehicule().getID()+" ("+place.getVehicule().getTypeVehicule().getLetter()+") didn't pay PlaceID#"+place.getIdPlace());
+	}
+	
 }

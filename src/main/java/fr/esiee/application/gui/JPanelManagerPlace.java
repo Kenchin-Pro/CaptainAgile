@@ -2,6 +2,7 @@ package fr.esiee.application.gui;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -10,10 +11,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import fr.esiee.application.parking.Parking;
+import fr.esiee.application.parking.Place;
 import fr.esiee.application.parking.exceptions.ExceptionPlaceIsAlreadyFree;
 import fr.esiee.application.parking.exceptions.ExceptionPlaceIsOccuped;
 import fr.esiee.application.parking.exceptions.ExceptionPlaceNotFound;
 import fr.esiee.application.parking.exceptions.ExceptionUnsuitablePlaceForThisVehicule;
+import fr.esiee.application.parking.time.TimePaid;
 import fr.esiee.application.service.ServiceGson;
 import fr.esiee.application.service.ServiceParkingManager;
 import fr.esiee.application.vehicule.Vehicule;
@@ -27,21 +30,24 @@ public class JPanelManagerPlace extends JPanel {
     private static final long serialVersionUID = -1010383032025265018L;
     
     @Getter private JComboBox<String> vehicleTypeComboBox ;
-    @Getter private JTextField placeNumberField, plaqueField ;
-    @Getter private JLabel textPlaceNumber, textPlaque, textVoid ;
+
+	@Getter private JComboBox<TimeUnit> timeUnit;
+    @Getter private JTextField placeNumberField, plaqueField, timePrePaye ;
+    @Getter private JLabel textPlaceNumber, textPlaque, textVoid, textPrePaye ;
     @Getter private JButton occupyButton, freeButton  ;
     
     @Getter @Setter private Parking parking ;
     @Getter @Setter private JPanelParking parkingPanel ;
 
     public JPanelManagerPlace(JPanelParking parkingPanel, Parking park) {
-        setLayout(new GridLayout(4, 1));
+        setLayout(new GridLayout(3, 1));
 
         setParkingPanel(parkingPanel);
         setParking(park);
         
         // Liste déroulante pour choisir le type de véhicule
         String[] vehicleTypes = TypeVehicule.valuesToString() ;
+        TimeUnit[] timeUnitTypes = TimeUnit.values() ;
         
         vehicleTypeComboBox = new JComboBox<>(vehicleTypes);
         plaqueField = new JTextField();
@@ -49,10 +55,11 @@ public class JPanelManagerPlace extends JPanel {
         textVoid = new JLabel("") ;
         textPlaceNumber = new JLabel("Numéro de place :") ;
         textPlaque = new JLabel("Plaque : ") ;
-
-        
-        // Champ de texte pour choisir le numéro de la place
         placeNumberField = new JTextField();
+        
+        textPrePaye = new JLabel("Temps pré-payé : ") ;
+        timePrePaye = new JTextField();
+        timeUnit = new JComboBox<TimeUnit>(timeUnitTypes) ;
         
         // Bouton pour valider l'emplacement de la place
         occupyButton = new JButton("Valider l'emplacement");
@@ -69,7 +76,12 @@ public class JPanelManagerPlace extends JPanel {
                     // Vous pouvez ici utiliser les données pour occuper la place dans votre modèle
                     TypeVehicule type = TypeVehicule.valueOf(selectedType);
                     Vehicule v = new Vehicule(type, plaque) ;                    
-                    ServiceParkingManager.vehiculeTakePlace(v, parking, placeNumber) ;
+                    Place place = ServiceParkingManager.vehiculeTakePlace(v, parking, placeNumber) ;
+                    
+                    if(place.isNeedToPayBefore()) {
+                    	TimePaid timePaid = new TimePaid(Integer.parseInt(timePrePaye.getText()), (TimeUnit) timeUnit.getSelectedItem()) ;
+                    	place.setTimePaid( timePaid );
+                    }
                     ServiceGson.save();
                     
                 } catch(NumberFormatException exc) {
@@ -130,5 +142,8 @@ public class JPanelManagerPlace extends JPanel {
         add(plaqueField) ;
         add(occupyButton);
         add(freeButton);
+        add(textPrePaye) ;
+        add(timePrePaye) ;
+        add(timeUnit) ;
     }
 }

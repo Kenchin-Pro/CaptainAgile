@@ -43,37 +43,11 @@ public class JPanelParking extends JPanel {
         
         g.drawString("Places 2 roues :", x, y-20);
 
-        for (Place p : parking.getListDeuxRoues()) {
-        	/*
-        	JButton button = new JButton() ;
-        	button.setSize(spotWidth, spotHeight);
-        	button.setName(p.getIdPlace()+"");
-        	
-            if (p.isOccupe())
-            	button.setBackground(Color.RED);
-                //g.setColor(Color.RED); // Place de parking occupée (en rouge)
-            else 
-            	button.setBackground(Color.GREEN);
-            	//g.setColor(Color.GREEN); // Place de parking libre (en vert)
-            
-            button.setBounds(x, y, spotWidth, spotHeight); // Définir la position et la taille
-            button.setVisible(true);
-            add(button) ;
-            */
-        	
-        	Color color = p.isOccupe() ? Color.RED : Color.GREEN ;
-        	
-        	g.setColor(color);
-            g.fillRect(x, y, spotWidth, 30);
-            g.setColor(Color.BLACK);
-            g.drawRect(x, y, spotWidth, 30);
-            g.drawString(p.getIdPlace()+"", x+5, y+12);
-            
-            if(p.isOccupe()) g.drawString(p.getVehicule().getTypeVehicule().getLetter(), x+5, y+25);
-            
-
-            x += spotWidth + 10;
+        for (Place p : parking.getListDeuxRoues()) { 
+        	this.drawPlace(g, p, x, y, spotWidth);
+        	x += spotWidth + 10;
         }
+        
         
         y += 80 ;
         x = 50 ;
@@ -81,21 +55,26 @@ public class JPanelParking extends JPanel {
         g.drawString("Places 4 roues :", x, y-20);
 
         for (Place p : parking.getListQuatreRoues()) {
-            if (p.isOccupe()) 
-                g.setColor(Color.RED); // Place de parking occupée (en rouge)
-            else 
-                g.setColor(Color.GREEN); // Place de parking libre (en vert)
-            
-            g.fillRect(x, y, spotWidth, 30);
-            g.setColor(Color.BLACK);
-            g.drawRect(x, y, spotWidth, 30);
-            g.drawString(p.getIdPlace()+"", x+5, y+12);
-            
-            if(p.isOccupe())
-            	g.drawString(p.getVehicule().getTypeVehicule().getLetter(), x+5, y+25);
-
-            x += spotWidth + 10;
+        	this.drawPlace(g, p, x, y, spotWidth);
+        	x += spotWidth + 10;
         }
+
+        
+    }
+    
+    private void drawPlace(Graphics g, Place p, int x, int y, int spotWidth) {
+
+    	Color color = p.getColorGUI() ;
+    	
+    	g.setColor(color);
+        g.fillRect(x, y, spotWidth, 30);
+        g.setColor(Color.BLACK);
+        g.drawRect(x, y, spotWidth, 30);
+        g.drawString(p.getIdPlace()+"", x+5, y+12);
+        
+        if(p.isOccupe()) g.drawString(p.getVehicule().getTypeVehicule().getLetter(), x+5, y+25);
+        
+
         
     }
     

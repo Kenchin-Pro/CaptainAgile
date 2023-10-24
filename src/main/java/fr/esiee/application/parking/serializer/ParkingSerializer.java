@@ -28,15 +28,19 @@ public class ParkingSerializer implements JsonSerializer<Parking>, JsonDeseriali
 		String name = obj.get("name").getAsString() ;
 		int nb2 = obj.get("nb_places_deux_roues").getAsInt() ;
 		int nb4 = obj.get("nb_places_quatre_roues").getAsInt() ;
+		boolean needPay = obj.get("needToPayBefore").getAsBoolean() ; 
 		
-		Parking p = new Parking(name, nb2, nb4) ;
+		Parking p = new Parking(name, nb2, nb4, needPay) ;
 		
 		JsonArray array2 = obj.get("list_2_roues").getAsJsonArray() ;
 		JsonArray array4 = obj.get("list_4_roues").getAsJsonArray() ;
 		
 		for(int i=0 ; i< nb2; i++) {
 			Place place = c.deserialize(array2.get(i), Place.class);
-			if(place != null) 
+			if(place != null) {
+				
+				place.setNeedToPayBefore(needPay);
+				
 				if(place.getVehicule() != null)
 					try {
 						p.setVehiculeOnPlaceID(place.getVehicule(), place.getIdPlace());
@@ -44,12 +48,19 @@ public class ParkingSerializer implements JsonSerializer<Parking>, JsonDeseriali
 							| ExceptionUnsuitablePlaceForThisVehicule e1) {
 						e1.printStackTrace();
 					}
+			
+				p.getListDeuxRoues().set(i, place) ;
+				
+			}
 		}
 		
 
 		for(int i=0 ; i< nb4 ; i++) {
 			Place place = c.deserialize(array4.get(i), Place.class);
-			if(place != null) 
+			if(place != null) {
+				
+				place.setNeedToPayBefore(needPay);
+				
 				if(place.getVehicule() != null)
 					try {
 						ServiceParkingManager.vehiculeTakePlace(place.getVehicule(), p, place.getIdPlace());
@@ -57,6 +68,10 @@ public class ParkingSerializer implements JsonSerializer<Parking>, JsonDeseriali
 							| ExceptionUnsuitablePlaceForThisVehicule e1) {
 						e1.printStackTrace();
 					}
+			
+				p.getListQuatreRoues().set(i, place) ;
+				
+			}
 		}
 		
 		
@@ -74,6 +89,8 @@ public class ParkingSerializer implements JsonSerializer<Parking>, JsonDeseriali
 		
 		obj.add("list_2_roues", c.serialize(p.getListDeuxRoues())); 
 		obj.add("list_4_roues", c.serialize(p.getListQuatreRoues())); 
+		
+		obj.addProperty("needToPayBefore", p.isNeedToPayBefore()); 
 		
 		return obj ;
 	}

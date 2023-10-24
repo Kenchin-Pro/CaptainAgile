@@ -13,10 +13,10 @@ public class ManagerParking implements ServiceParkingManager {
 
 		ServiceParkingManager.mapParkings.clear();
 		
-		Parking parking1 = new Parking("Parking 1", 1, 5) ;  
-		Parking parking2 = new Parking("Parking 2", 4, 10) ; 
-		Parking parking3 = new Parking("Parking 3", 0, 4) ; 
-		Parking parking4 = new Parking("Parking 4", 10, 2) ; 
+		Parking parking1 = new Parking("Parking Intérieur 1", 1, 5, false) ;  
+		Parking parking2 = new Parking("Parking Intérieur 2", 4, 10, false) ; 
+		Parking parking3 = new Parking("Parking Intérieur 3", 0, 4, false) ; 
+		Parking parking4 = new Parking("Parking Extérieur 4", 10, 2, true) ; 
 		
 		ServiceParkingManager.addParking(parking1);
 		ServiceParkingManager.addParking(parking2);

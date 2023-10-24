@@ -28,6 +28,36 @@ public class JPanelParkingManager extends JPanel {
 
         jpanelManagerPlace = new JPanelManagerPlace(parkingPanel, parking) ;
         add(jpanelManagerPlace, BorderLayout.SOUTH) ;
+        
+        new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				
+				while(true) {
+					
+					reloadParkings();
+					
+					try {
+						Thread.sleep(1000) ;
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					
+				}
+				
+				
+				
+			}
+		}).start();
+        
+        
+	}
+	
+	private void reloadParkings() {
+		if(parking == null) return ;
+		parkingPanel.setParking(parking);
+		parkingPanel.repaint();
 	}
 	
 	@Override

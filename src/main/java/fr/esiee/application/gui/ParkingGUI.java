@@ -12,7 +12,7 @@ public class ParkingGUI extends JFrame {
         
         // Configuration de la fenetre
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 400);
+        setSize(1100, 600);
         
 
         JPanelParkingManager parkingManagerPanel = new JPanelParkingManager(null);

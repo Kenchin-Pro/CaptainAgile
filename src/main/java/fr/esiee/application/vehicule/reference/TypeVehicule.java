@@ -10,7 +10,11 @@ public enum TypeVehicule {
 	SCOOTER(TypePlace.DEUX_ROUES, "S"), 
 	MOTO(TypePlace.DEUX_ROUES, "M"), 
 	VOITURE(TypePlace.QUATRE_ROUES, "V"), 
-	CAMIONNETTE(TypePlace.QUATRE_ROUES, "C") ;
+	CAMIONNETTE(TypePlace.QUATRE_ROUES, "C"),
+	TROTTINETTE(TypePlace.DEUX_ROUES, "T"),
+	VELO(TypePlace.DEUX_ROUES, "VE"),
+	CARAVANE(TypePlace.QUATRE_ROUES, "CV"),
+	;
 	
 	@Getter @Setter private TypePlace typePlace ;
 	@Getter @Setter private String letter ;

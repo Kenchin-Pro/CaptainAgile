@@ -1,9 +1,14 @@
 package fr.esiee.application.parking;
 
+import java.awt.Color;
+import java.util.concurrent.TimeUnit;
+
 import fr.esiee.application.parking.exceptions.ExceptionPlaceIsAlreadyFree;
 import fr.esiee.application.parking.exceptions.ExceptionPlaceIsOccuped;
 import fr.esiee.application.parking.exceptions.ExceptionUnsuitablePlaceForThisVehicule;
 import fr.esiee.application.parking.reference.TypePlace;
+import fr.esiee.application.parking.time.TimePaid;
+import fr.esiee.application.service.ServiceLogger;
 import fr.esiee.application.vehicule.Vehicule;
 import fr.esiee.application.vehicule.reference.TypeVehicule;
 import lombok.Getter;
@@ -15,9 +20,19 @@ public class Place {
 	@Getter @Setter private TypePlace type ; 
 	@Getter private Vehicule vehicule ;
 	
+	@Getter @Setter private TimePaid timePaid ; 
+	@Getter @Setter private boolean needToPayBefore ;
+	@Getter @Setter private boolean notificationNotPermission ;
+	
 	public Place(int idPlace, TypePlace type) {
 		setIdPlace(idPlace);
 		setType(type);
+		setNotificationNotPermission(false);
+	}
+	
+	public Place(int idPlace, TypePlace type, boolean needToPayBefore) {
+		this(idPlace, type) ;
+		setNeedToPayBefore(needToPayBefore);
 	}
 	
 	public boolean isAcceptTypeVehicule(TypeVehicule type) {
@@ -37,6 +52,12 @@ public class Place {
 			throw new ExceptionUnsuitablePlaceForThisVehicule() ;
 		
 		this.vehicule = vehicule ;
+		
+	}
+	
+	public void setVehiculeWithTime(Vehicule v, int number, TimeUnit unit) throws ExceptionPlaceIsOccuped, ExceptionUnsuitablePlaceForThisVehicule {
+		this.setVehicule(v);
+		setTimePaid(new TimePaid(number, unit));
 	}
 	
 	public void libererPlace() throws ExceptionPlaceIsAlreadyFree {
@@ -45,6 +66,7 @@ public class Place {
 			throw new ExceptionPlaceIsAlreadyFree() ;
 		
 		this.vehicule = null ;
+		this.notificationNotPermission = false ;
 		
 	}
 	
@@ -60,6 +82,23 @@ public class Place {
 		
 		return text ; 
 		
+	}
+
+	public Color getColorGUI() {
+		
+		if(!this.isOccupe()) return Color.GREEN ;
+		
+		if(!this.isNeedToPayBefore()) return Color.YELLOW ;
+		if(timePaid != null && timePaid.isInTheStandards()) return Color.ORANGE ;
+		
+		if(!notificationNotPermission) {
+			notificationNotPermission = true ; 
+			ServiceLogger.logVehiculeNotInTheRules(this);
+		}
+		
+		return Color.RED ;
+		
+	
 	}
 	
 	

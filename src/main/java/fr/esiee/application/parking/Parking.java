@@ -19,21 +19,23 @@ public class Parking {
 	@Getter @Setter private List<Place> listDeuxRoues ;
 	@Getter @Setter private List<Place> listQuatreRoues ;
 	@Getter @Setter private int nbPlacesDeuxRoues, nbPlacesQuatreRoues ;
+	@Getter private final boolean needToPayBefore ;
 	
-	public Parking(String name, int nb_places_deux_roues, int nb_places_quatre_roues) {
+	public Parking(String name, int nb_places_deux_roues, int nb_places_quatre_roues, boolean needToPayBefore) {
 		setName(name);
 		setNbPlacesDeuxRoues(nb_places_deux_roues);
 		setNbPlacesQuatreRoues(nb_places_quatre_roues);
 		setListDeuxRoues(new ArrayList<Place>(nb_places_deux_roues));
 		setListQuatreRoues(new ArrayList<Place>(nb_places_quatre_roues));
-		
+		this.needToPayBefore = needToPayBefore;
+
 		int id = 0 ;
 		
 		for(int i = 0 ; i < this.nbPlacesDeuxRoues ; i++, id++) 
-			this.listDeuxRoues.add(new Place(id, TypePlace.DEUX_ROUES)) ;
+			this.listDeuxRoues.add(new Place(id, TypePlace.DEUX_ROUES, needToPayBefore)) ;
 		
 		for(int i = 0 ; i < this.nbPlacesQuatreRoues ; i++, id++) 
-			this.listQuatreRoues.add(new Place(id, TypePlace.QUATRE_ROUES)) ;
+			this.listQuatreRoues.add(new Place(id, TypePlace.QUATRE_ROUES, needToPayBefore)) ;
 		
 			 
 	}
@@ -66,17 +68,24 @@ public class Parking {
 		
 	}
 	
-	public void setVehiculeOnPlaceID(Vehicule vehicule, int placeID) throws ExceptionPlaceNotFound, ExceptionPlaceIsOccuped, ExceptionUnsuitablePlaceForThisVehicule {
+	public Place setVehiculeOnPlaceID(Vehicule vehicule, int placeID) throws ExceptionPlaceNotFound, ExceptionPlaceIsOccuped, ExceptionUnsuitablePlaceForThisVehicule {
+		
+		if(vehicule == null) throw new NullPointerException("Vehicule null") ;
+		
 		Place place = this.getPlaceWithID(placeID) ;
 		place.setVehicule(vehicule);
 		ServiceLogger.logVehiculeTakePlace(this, place);
+		
+		return place ;
 	}
 	
-	public void clearVehiculeOnPlaceID(int placeID) throws ExceptionPlaceIsAlreadyFree, ExceptionPlaceNotFound {
+	public Place clearVehiculeOnPlaceID(int placeID) throws ExceptionPlaceIsAlreadyFree, ExceptionPlaceNotFound {
 		Place place = this.getPlaceWithID(placeID) ;
 		Vehicule v = place.getVehicule() ;
 		place.libererPlace();
 		ServiceLogger.logVehiculeFreeUpPlace(this, v, place);
+		
+		return place ;
 	}
 	
 	
